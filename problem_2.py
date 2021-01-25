@@ -27,19 +27,21 @@ def find_files(suffix, path):
     return files
 
 
-result = find_files('.c', './testdir/subdir1')
-assert result == ['./testdir/subdir1/a.c']
-print(*result)
-# ./testdir/subdir1/a.c
+if __name__ == "__main__":
 
+    # tests
 
-result = find_files('.c', './testdir')
-assert all(path in result for path in ['./testdir/subdir1/a.c', './testdir/subdir3/subsubdir1/b.c', './testdir/subdir5/a.c', './testdir/t1.c'])
-print(*result, sep=', ')
-# './testdir/subdir1/a.c', './testdir/subdir3/subsubdir1/b.c', './testdir/subdir5/a.c', './testdir/t1.c' in arbitrary order
+    result = find_files('.c', './testdir/subdir1')
+    assert result == ['./testdir/subdir1/a.c']
+    print(*result)
+    # ./testdir/subdir1/a.c
 
+    result = find_files('.c', './testdir')
+    assert all(path in result for path in ['./testdir/subdir1/a.c', './testdir/subdir3/subsubdir1/b.c', './testdir/subdir5/a.c', './testdir/t1.c'])
+    print(*result, sep=', ')
+    # './testdir/subdir1/a.c', './testdir/subdir3/subsubdir1/b.c', './testdir/subdir5/a.c', './testdir/t1.c' in arbitrary order
 
-result = find_files('.not_existing', 'not_existing_path')
-assert result == []
-print(*result)
-#
+    result = find_files('.not_existing', 'not_existing_path')
+    assert result == []
+    print(*result)
+    #

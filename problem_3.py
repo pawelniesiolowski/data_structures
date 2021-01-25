@@ -141,6 +141,9 @@ class HuffmanTreeNode:
 
 
 if __name__ == "__main__":
+
+    # tests
+
     codes = {}
 
     a_great_sentence = "The bird is the word"

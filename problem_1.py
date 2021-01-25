@@ -73,32 +73,36 @@ class Timestamps:
         self.timestamps.append(timestamp)
 
 
-our_cache = LRUCache(5)
+if __name__ == "__main__":
 
-our_cache.set(1, 1);
-our_cache.set(2, 2);
-our_cache.set(3, 3);
-our_cache.set(4, 4);
+    # tests
 
-result = our_cache.get(1)
-assert result == 1
-print(result)
-# 1
+    our_cache = LRUCache(5)
 
-result = our_cache.get(2)
-assert result == 2
-print(result)
-# 2
+    our_cache.set(1, 1);
+    our_cache.set(2, 2);
+    our_cache.set(3, 3);
+    our_cache.set(4, 4);
 
-result = our_cache.get(9)
-assert result == -1
-print(result)
-# -1
+    result = our_cache.get(1)
+    assert result == 1
+    print(result)
+    # 1
 
-our_cache.set(5, 5)
-our_cache.set(6, 6)
+    result = our_cache.get(2)
+    assert result == 2
+    print(result)
+    # 2
 
-result = our_cache.get(3)
-assert result == -1
-print(result)
-# returns -1 because the cache reached it's capacity and 3 was the least recently used entry
+    result = our_cache.get(9)
+    assert result == -1
+    print(result)
+    # -1
+
+    our_cache.set(5, 5)
+    our_cache.set(6, 6)
+
+    result = our_cache.get(3)
+    assert result == -1
+    print(result)
+    # returns -1 because the cache reached it's capacity and 3 was the least recently used entry
