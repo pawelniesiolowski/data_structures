@@ -73,9 +73,9 @@ class Timestamps:
         self.timestamps.append(timestamp)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
-    # tests
+    # Tests
 
     our_cache = LRUCache(5)
 
@@ -106,3 +106,19 @@ if __name__ == "__main__":
     assert result == -1
     print(result)
     # returns -1 because the cache reached it's capacity and 3 was the least recently used entry
+
+    result = our_cache.get(1)
+    assert result == 1
+    print(result)
+    # 1
+
+    result = our_cache.get(2)
+    assert result == 2
+    print(result)
+    # 2
+
+    our_cache.set(7, 7)
+    result = our_cache.get(4)
+    assert result == -1
+    print(result)
+    # returns -1 because cache reached it's capacity once again and 4 was the least recently used entry

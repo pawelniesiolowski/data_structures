@@ -2,7 +2,7 @@ import os
 
 
 def find_files(suffix, path):
-    """
+    '''
     Find all files beneath path with file name suffix.
 
     Note that a path may contain further subdirectories
@@ -16,7 +16,7 @@ def find_files(suffix, path):
 
     Returns:
        a list of paths
-    """
+    '''
     if os.path.isfile(path):
         return [path] if path.endswith(suffix) else []
 
@@ -27,9 +27,9 @@ def find_files(suffix, path):
     return files
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
-    # tests
+    # Tests
 
     result = find_files('.c', './testdir/subdir1')
     assert result == ['./testdir/subdir1/a.c']
@@ -39,9 +39,15 @@ if __name__ == "__main__":
     result = find_files('.c', './testdir')
     assert all(path in result for path in ['./testdir/subdir1/a.c', './testdir/subdir3/subsubdir1/b.c', './testdir/subdir5/a.c', './testdir/t1.c'])
     print(*result, sep=', ')
-    # './testdir/subdir1/a.c', './testdir/subdir3/subsubdir1/b.c', './testdir/subdir5/a.c', './testdir/t1.c' in arbitrary order
+    # ./testdir/subdir1/a.c, ./testdir/subdir3/subsubdir1/b.c, ./testdir/subdir5/a.c, ./testdir/t1.c (in arbitrary order)
 
     result = find_files('.not_existing', 'not_existing_path')
     assert result == []
     print(*result)
-    #
+    # it found nothing for not existing values
+
+    result = find_files('', './testdir/subdir1')
+    # assert result == []
+    assert all(path in result for path in ['./testdir/subdir1/a.h', './testdir/subdir1/a.c'])
+    print(*result, sep=', ')
+    # ./testdir/subdir1/a.h, ./testdir/subdir1/a.c (it found all files in path for empty string as suffix)

@@ -1,4 +1,5 @@
 class Group(object):
+
     def __init__(self, _name):
         self.name = _name
         self.groups = []
@@ -20,16 +21,14 @@ class Group(object):
         return self.name
 
 
-
-
 def is_user_in_group(user, group):
-    """
+    '''
     Return True if user is in the group, False otherwise.
 
     Args:
       user(str): user name/id
       group(class:Group): group to check user membership against
-    """
+    '''
     for checked_user in group.get_users():
         if checked_user == user:
             return True
@@ -41,9 +40,9 @@ def is_user_in_group(user, group):
     return False
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
-    # basic tests data
+    # Basic tests data
 
     parent = Group("parent")
     child = Group("child")
@@ -55,22 +54,21 @@ if __name__ == "__main__":
     child.add_group(sub_child)
     parent.add_group(child)
 
+    # Extended tests data
 
-    # extended tests data
+    parent2 = Group('parent2')
+    child2 = Group('child2')
+    second_child2 = Group('second_child2')
+    sub_child2 = Group('subchild2')
+    second_sub_child2 = Group('second_sub_child2')
 
-    parent2 = Group("parent2")
-    child2 = Group("child2")
-    second_child2 = Group("second_child2")
-    sub_child2 = Group("subchild2")
-    second_sub_child2 = Group("second_sub_child2")
-
-    sub_child_user2 = "sub_child_user2"
+    sub_child_user2 = 'sub_child_user2'
     sub_child2.add_user(sub_child_user2)
 
-    second_sub_child_user2 = "second_sub_child_user2"
+    second_sub_child_user2 = 'second_sub_child_user2'
     second_sub_child2.add_user(second_sub_child_user2)
 
-    third_sub_child_user2 = "third_sub_child_user2"
+    third_sub_child_user2 = 'third_sub_child_user2'
     second_sub_child2.add_user(third_sub_child_user2)
 
     child2.add_group(sub_child2)
@@ -78,11 +76,10 @@ if __name__ == "__main__":
     second_child2.add_group(second_sub_child2)
     parent2.add_group(second_child2)
 
-    quick_child2 = "quick_child2"
+    quick_child2 = 'quick_child2'
     child2.add_user(quick_child2)
 
-
-    # tests
+    # Tests
 
     result1 = is_user_in_group('sub_child_user', parent)
     assert result1 is True

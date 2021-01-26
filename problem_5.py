@@ -33,6 +33,10 @@ class Blockchain:
         data = []
 
         block = self.tail
+
+        if block is None:
+            return data
+
         while True:
             data.append((block.timestamp, block.data))
 
@@ -47,9 +51,9 @@ class Blockchain:
         return data
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
-    # tests basic functionalities
+    # Tests basic functionalities
 
     tested_texts = ('First text', 'Second text', 'Third text')
 
@@ -75,7 +79,7 @@ if __name__ == "__main__":
     print(result[1])
     # Another text
 
-    # test blockchain integration violation
+    # Test blockchain integration violation
 
     blockchain.tail.prev_block = Block('Invalid data', blockchain.tail.prev_block.prev_block)
 
@@ -90,3 +94,11 @@ if __name__ == "__main__":
 
     print(exception_thrown)
     # True
+
+    # Test empty blockchain has empty data
+
+    blockchain = Blockchain()
+    result = blockchain.complete_blocks_data()
+    assert result == []
+    print(result)
+    # []
