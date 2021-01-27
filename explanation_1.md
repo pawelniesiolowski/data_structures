@@ -4,5 +4,5 @@ To achieve constant time complexity, I use a dictionary to store the data and a 
 Also, to keep time complexity constant, I map timestamps to dictionary keys and vice versa.
 
 Time complexity is always O(1).
-Space complexity is also O(1), because the cache always stores the same number of elements (recently used after exceeding capacity).
+Space complexity is also O(n), where "n" is number of elements in cache (cache capacity).
 
