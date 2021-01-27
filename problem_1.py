@@ -5,6 +5,9 @@ import time
 class LRUCache:
 
     def __init__(self, capacity):
+        if not isinstance(capacity, int):
+            raise TypeError(f'Capacity must by type of int, {type(capacity)} given')
+
         self.capacity = capacity
         self.num_of_elements = 0
         self.data = {}
@@ -18,7 +21,7 @@ class LRUCache:
         return -1
 
     def set(self, key, value):
-        if key in self.data:
+        if self.capacity == 0 or key in self.data:
             return
 
         self.manage_capacity()
@@ -122,3 +125,21 @@ if __name__ == '__main__':
     assert result == -1
     print(result)
     # returns -1 because cache reached it's capacity once again and 4 was the least recently used entry
+
+    disabled_cache = LRUCache(0)
+    disabled_cache.set(1, 1)
+    result = disabled_cache.get(1)
+    assert result == -1
+    print(result)
+    # returns -1 because cache has capacity equals 0
+
+    exception_has_benn_thrown = False
+
+    try:
+        disabled_cache = LRUCache(None)
+    except TypeError:
+        exception_has_benn_thrown = True
+
+    assert exception_has_benn_thrown == True
+    print(exception_has_benn_thrown)
+    # It throws exception due to invalid capacity type
