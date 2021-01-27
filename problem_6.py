@@ -106,14 +106,14 @@ if __name__ == '__main__':
 
     result = union(linked_list_1, linked_list_2)
     unioned_elements = set(element_1).union(set(element_2))
-    assert len(result.to_list()) == len(unioned_elements)
+    assert result.size() == len(unioned_elements)
     assert all(el in result.to_list() for el in unioned_elements)
     print(result)
     # 3 -> 2 -> 4 -> 35 -> 6 -> 65 -> 21 -> 32 -> 9 -> 1 -> 11 ->
 
     result = intersection(linked_list_1, linked_list_2)
     intersectioned_elements = set(element_1).intersection(element_2)
-    assert len(result.to_list()) == len(intersectioned_elements)
+    assert result.size() == len(intersectioned_elements)
     assert all(el in result.to_list() for el in intersectioned_elements)
     print(result)
     # 6 -> 4 -> 21 ->
@@ -134,14 +134,14 @@ if __name__ == '__main__':
 
     result = union(linked_list_3, linked_list_4)
     unioned_elements = set(element_1).union(set(element_2))
-    assert len(result.to_list()) == len(unioned_elements)
+    assert result.size() == len(unioned_elements)
     assert all(el in result.to_list() for el in unioned_elements)
     print(result)
     # 3 -> 2 -> 4 -> 35 -> 6 -> 65 -> 23 -> 1 -> 7 -> 8 -> 9 -> 11 -> 21 ->
 
     result = intersection(linked_list_3, linked_list_4)
     intersectioned_elements = set(element_1).intersection(element_2)
-    assert len(result.to_list()) == len(intersectioned_elements)
+    assert result.size() == len(intersectioned_elements)
     assert all(el in result.to_list() for el in intersectioned_elements)
     print(result)
     # empty result
@@ -162,14 +162,14 @@ if __name__ == '__main__':
 
     result = union(linked_list_5, linked_list_6)
     unioned_elements = set(element_1).union(set(element_2))
-    assert len(result.to_list()) == len(unioned_elements)
+    assert result.size() == len(unioned_elements)
     assert all(el in result.to_list() for el in unioned_elements)
     print(result)
     # 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 ->
 
     result = intersection(linked_list_5, linked_list_6)
     intersectioned_elements = set(element_1).intersection(element_2)
-    assert len(result.to_list()) == len(intersectioned_elements)
+    assert result.size() == len(intersectioned_elements)
     assert all(el in result.to_list() for el in intersectioned_elements)
     print(result)
     # 6 ->
@@ -190,14 +190,14 @@ if __name__ == '__main__':
 
     result = union(linked_list_7, linked_list_8)
     unioned_elements = set(element_1).union(set(element_2))
-    assert len(result.to_list()) == len(unioned_elements)
+    assert result.size() == len(unioned_elements)
     assert all(el in result.to_list() for el in unioned_elements)
     print(result)
     # 1 -> 2 ->
 
     result = intersection(linked_list_7, linked_list_8)
     intersectioned_elements = set(element_1).intersection(element_2)
-    assert len(result.to_list()) == len(intersectioned_elements)
+    assert result.size() == len(intersectioned_elements)
     assert all(el in result.to_list() for el in intersectioned_elements)
     print(result)
     # empty result
@@ -218,14 +218,49 @@ if __name__ == '__main__':
 
     result = union(linked_list_9, linked_list_10)
     unioned_elements = set(element_1).union(set(element_2))
-    assert len(result.to_list()) == len(unioned_elements)
+    assert result.size() == len(unioned_elements)
     assert all(el in result.to_list() for el in unioned_elements)
     print(result)
     # 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 1000000 ->
 
     result = intersection(linked_list_9, linked_list_10)
     intersectioned_elements = set(element_1).intersection(element_2)
-    assert len(result.to_list()) == len(intersectioned_elements)
+    assert result.size() == len(intersectioned_elements)
     assert all(el in result.to_list() for el in intersectioned_elements)
     print(result)
     # 1000000 ->
+
+    # Test case 5
+
+    linked_list_11 = LinkedList()
+    linked_list_12 = LinkedList()
+
+    result = union(linked_list_11, linked_list_12)
+    assert result.size() == 0
+    print(result)
+    # empty result
+
+    result = intersection(linked_list_11, linked_list_12)
+    assert result.size() == 0
+    print(result)
+    # empty result
+
+    # Test case 6
+
+    linked_list_13 = LinkedList()
+    linked_list_14 = LinkedList()
+
+    element_1 = [1,2,3]
+
+    for i in element_1:
+        linked_list_13.append(i)
+
+    result = union(linked_list_13, linked_list_14)
+    assert result.size() == len(element_1)
+    print(result)
+    # 1 -> 2 -> 3 ->
+
+    result = intersection(linked_list_13, linked_list_14)
+    assert result.size() == 0
+    print(result)
+    # empty result
