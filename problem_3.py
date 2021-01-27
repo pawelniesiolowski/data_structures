@@ -69,7 +69,7 @@ class HuffmanTreeEncoder:
 
         def do_build_codes(node, code):
             if node.has_char():
-                codes[node.get_char()] = code
+                codes[node.get_char()] = code or '0'
             else:
                 do_build_codes(node.left_child, code + '0')
                 do_build_codes(node.right_child, code + '1')
@@ -85,7 +85,16 @@ class HuffmanTreeDecoder():
     def decode(self, data):
         message = ''
         node = self.tree
+
+        single_node_in_tree = False
+        if node.left_child is None and node.right_child is None:
+            single_node_in_tree = True
+
         for char in data:
+            if single_node_in_tree and node.has_char():
+                message += node.get_char()
+                continue
+
             if node.has_char():
                 message += node.get_char()
                 node = self.tree
@@ -94,7 +103,7 @@ class HuffmanTreeDecoder():
             else:
                 node = node.right_child
 
-        if node.has_char():
+        if node.has_char() and not single_node_in_tree:
             message += node.get_char()
 
         return message
@@ -166,14 +175,14 @@ if __name__ == '__main__':
     encoded_data, tree = huffman_encoding(first_test_sentence)
     decoded_data = huffman_decoding(encoded_data, tree)
     assert first_test_sentence == decoded_data
-    print(first_test_sentence)
+    print(decoded_data)
     # This is my first test of the Huffman Coding
 
     second_test_data = '12345678910'
     encoded_data, tree = huffman_encoding(second_test_data)
     decoded_data = huffman_decoding(encoded_data, tree)
     assert second_test_data == decoded_data
-    print(second_test_data)
+    print(decoded_data)
     # 12345678910
 
     empty_string = ''
@@ -181,5 +190,13 @@ if __name__ == '__main__':
     decoded_data = huffman_decoding(encoded_data, tree)
     assert empty_string == decoded_data
     assert isinstance(decoded_data, str)
-    print(empty_string)
+    print(decoded_data)
     # empty string
+
+    repetitive_char = 'AAAAAA'
+    encoded_data, tree = huffman_encoding(repetitive_char)
+    decoded_data = huffman_decoding(encoded_data, tree)
+    assert repetitive_char == decoded_data
+    assert isinstance(decoded_data, str)
+    print(decoded_data)
+    # AAAAAA
