@@ -31,7 +31,7 @@ class Blockchain:
         block = Block(data, self.tail)
         self.tail = block
 
-    def complete_blocks_data(self):
+    def to_list_of_tuples(self):
         data = []
 
         block = self.tail
@@ -40,7 +40,7 @@ class Blockchain:
             return data
 
         while True:
-            data.append((block.timestamp, block.data))
+            data.append((block.timestamp.strftime('%Y-%m-%dT%H:%M:%S.%f%Z'), block.data, block.hash, block.prev_block_hash))
 
             if block.prev_block is None:
                 break
@@ -51,7 +51,6 @@ class Blockchain:
             block = block.prev_block
 
         return data
-
 
 if __name__ == '__main__':
 
@@ -64,19 +63,19 @@ if __name__ == '__main__':
     blockchain.add_data(tested_texts[1])
     blockchain.add_data(tested_texts[2])
 
-    result = blockchain.complete_blocks_data()
+    result = blockchain.to_list_of_tuples()
     num = 0
     while len(result) > 0:
         data = result.pop()
         assert data[1] == tested_texts[num]
         num += 1
         print(data)
-        # (datetime, 'First text')
-        # (datetime, 'Second text')
-        # (datetime, 'Third text')
+        # (timestamp, 'First text', block hash, 0)
+        # (timestamp, 'Second text', block hash, prev block hash)
+        # (timestamp, 'Third text', block hash, prev block hash)
 
     blockchain.add_data('Another text')
-    result = blockchain.complete_blocks_data().pop(0)
+    result = blockchain.to_list_of_tuples().pop(0)
     assert result[1] == 'Another text'
     print(result[1])
     # Another text
@@ -88,7 +87,7 @@ if __name__ == '__main__':
     exception_thrown = False
 
     try:
-        blockchain.complete_blocks_data()
+        blockchain.to_list_of_tuples()
     except KeyError as e:
         exception_thrown = True
 
@@ -100,7 +99,7 @@ if __name__ == '__main__':
     # Test empty blockchain has empty data
 
     blockchain = Blockchain()
-    result = blockchain.complete_blocks_data()
+    result = blockchain.to_list_of_tuples()
     assert result == []
     print(result)
     # []
@@ -109,10 +108,10 @@ if __name__ == '__main__':
 
     blockchain = Blockchain()
     blockchain.add_data('')
-    result = blockchain.complete_blocks_data()
+    result = blockchain.to_list_of_tuples()
     # assert result == []
     print(result[0])
-    # (datetime, '')
+    # (timestamp, '', block hash, 0)
 
     # Trying to create an block with None value should raise exception
 
