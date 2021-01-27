@@ -6,6 +6,8 @@ class Block:
 
     def __init__(self, data, prev_block):
         self.timestamp = datetime.datetime.utcnow()
+        if not isinstance(data, str):
+            raise TypeError(f'Block data must by type of string, {type(data)} given')
         self.data = data
         self.hash = self.calc_hash()
 
@@ -90,7 +92,7 @@ if __name__ == '__main__':
     except KeyError as e:
         exception_thrown = True
 
-    assert exception_thrown == True
+    assert exception_thrown
 
     print(exception_thrown)
     # True
@@ -102,3 +104,26 @@ if __name__ == '__main__':
     assert result == []
     print(result)
     # []
+
+    # Trying to create block with empty string
+
+    blockchain = Blockchain()
+    blockchain.add_data('')
+    result = blockchain.complete_blocks_data()
+    # assert result == []
+    print(result[0])
+    # (datetime, '')
+
+    # Trying to create an block with None value should raise exception
+
+    blockchain = Blockchain()
+
+    exception_thrown = False
+    try:
+        blockchain.add_data(None)
+    except TypeError:
+        exception_thrown = True
+
+    assert exception_thrown
+    print(exception_thrown)
+    # True

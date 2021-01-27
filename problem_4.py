@@ -9,6 +9,9 @@ class Group(object):
         self.groups.append(group)
 
     def add_user(self, user):
+        if not isinstance(user, str) or user == '':
+            raise ValueError('User must have a name')
+
         self.users.append(user)
 
     def get_groups(self):
@@ -104,4 +107,32 @@ if __name__ == '__main__':
     result5 = is_user_in_group('not_existing_child', parent2)
     assert result5 is False
     print(result5)
+    # False
+
+    # Test empty user in group should throw exception
+
+    some_group = Group('some_group');
+    empty_user = ''
+
+    exception_thrown = False
+    try:
+        some_group.add_user(empty_user)
+    except ValueError:
+        exception_thrown = True
+
+    assert exception_thrown
+    print(exception_thrown)
+
+    # Test groups without users
+
+    first_group = Group('first_group')
+    second_group = Group('second_group')
+    third_group = Group('third_group')
+
+    first_group.add_group(second_group)
+    second_group.add_group(third_group)
+
+    result6 = is_user_in_group('some_user', first_group)
+    assert result6 is False
+    print(result6)
     # False

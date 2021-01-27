@@ -138,8 +138,8 @@ if __name__ == '__main__':
     try:
         disabled_cache = LRUCache(None)
     except TypeError:
-        exception_has_benn_thrown = True
+        exception_thrown = True
 
-    assert exception_has_benn_thrown == True
-    print(exception_has_benn_thrown)
+    assert exception_thrown
+    print(exception_thrown)
     # It throws exception due to invalid capacity type
